@@ -1,0 +1,39 @@
+﻿<Window x:Class="MyBank.Views.AddClientView"
+        x:Name="AddClientW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyBank.Views" xmlns:local1="clr-namespace:MyBank.ViewModels"
+        mc:Ignorable="d"
+        Title="AddClient" Height="275" Width="288" ResizeMode="NoResize">
+    <Window.DataContext>
+        <local1:AddClientVM></local1:AddClientVM>
+    </Window.DataContext>
+    <Grid Margin="0,0,0,5">
+        <StackPanel x:Name="LeftStackPanel" HorizontalAlignment="Left" Height="233" VerticalAlignment="Top" Width="130" Margin="10,10,0,0">
+            <TextBlock x:Name="NameField" TextWrapping="Wrap" Text="Name" Margin="10,10" FontSize="12" TextAlignment="Center" Height="30" />
+            <TextBlock x:Name="SurnameField" TextWrapping="Wrap" Text="LastName" Margin="10,10" FontSize="12" TextAlignment="Center" Height="30" />
+            <TextBlock x:Name="TypeField" TextWrapping="Wrap" Text="Type" Margin="10,10" FontSize="12" TextAlignment="Center" Height="30" />
+            <TextBlock x:Name="WorkplaceField" TextWrapping="Wrap" Text="Organization" Margin="10,10" FontSize="12" TextAlignment="Center" Height="30" />
+        </StackPanel>
+        <StackPanel x:Name="RightStackPanel" HorizontalAlignment="Right" Height="231" VerticalAlignment="Top" Width="130" Margin="0,10,10,0">
+            <TextBox x:Name="NameBox" TextWrapping="Wrap" Margin="10,10" Height="30"/>
+            <TextBox x:Name="LastNameBox" TextWrapping="Wrap" Margin="10,10" Height="30"/>
+            <TextBox x:Name="TypeBox" Margin="10,10" Height="30"/>
+            <TextBox x:Name="WorkplaceBox" TextWrapping="Wrap" Margin="10,10" Height="30"/>
+            <Button x:Name="SaveBtn" Content="Add" Margin="10,0" Height="30" Command="{Binding AddClientCommand}">
+                <Button.CommandParameter>
+                    <MultiBinding Converter="{StaticResource CConverter}">
+                        <Binding ElementName="NameBox" Path="Text"/>
+                        <Binding ElementName="LastNameBox" Path="Text"/>
+                        <Binding ElementName="TypeBox" Path="Text"/>
+                        <Binding ElementName="WorkplaceBox" Path="Text"/>
+                        <Binding ElementName="AddClientW"/>
+                    </MultiBinding>
+                </Button.CommandParameter>
+            </Button>
+
+        </StackPanel>
+    </Grid>
+</Window>

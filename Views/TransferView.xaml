@@ -1,0 +1,32 @@
+﻿<Window x:Class="MyBank.Views.TransferView"
+        x:Name="TransferW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyBank.Views" xmlns:local1="clr-namespace:MyBank.ViewModels"
+        mc:Ignorable="d"
+        Title="TransferView" Height="308" Width="831" ResizeMode="NoResize">
+    <Window.DataContext>
+        <local1:TransferVM></local1:TransferVM>
+    </Window.DataContext>
+    <DockPanel>
+        <DataGrid DockPanel.Dock="Left" ItemsSource="{Binding Bills}"  SelectedItem="{Binding BillFrom}"  Width="310" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Owner}" Header="Bill"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Money, UpdateSourceTrigger=PropertyChanged}" Header="Money"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid ItemsSource="{Binding Bills}" Width="311" DockPanel.Dock="Right" SelectedItem="{Binding BillTo}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Owner}" Header="Bill"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Money}" Header="Money"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Width="85">
+            <Label Content="Sum" ></Label>
+            <Button Content="Transfer"   Command="{Binding TransferCommnad}" CommandParameter="{Binding ElementName=TransferW}"/>
+            <TextBox Text="{Binding SumFromBox}"></TextBox>
+        </StackPanel>
+    </DockPanel>
+</Window>

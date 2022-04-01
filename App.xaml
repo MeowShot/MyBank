@@ -1,0 +1,12 @@
+﻿<Application x:Class="MyBank.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:c="clr-namespace:MyBank.Helpers"
+             StartupUri="Views/BankView.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <c:ClientConverter x:Key="CConverter"/>
+            <c:BillConverter x:Key="BConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

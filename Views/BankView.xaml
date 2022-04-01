@@ -1,0 +1,61 @@
+﻿<Window x:Class="MyBank.Views.BankView"
+        x:Name="BankW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MyBank.Views" xmlns:local1="clr-namespace:MyBank.ViewModels"
+        mc:Ignorable="d"
+        Title="BankView" Height="909" Width="1000" ResizeMode="NoResize">
+    <Window.DataContext>
+        <local1:BankVM></local1:BankVM>
+    </Window.DataContext>
+    <Grid>
+        <TabControl   Margin="10,0,10,397">
+            <TabItem Header="CommonClients">
+                <DataGrid x:Name="IndividualsDG" ItemsSource="{Binding Path = CommonsToShow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding Selected}"  Margin="0,0,0,-74">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+                        <DataGridTextColumn Header="Bill limit" Binding="{Binding MaxDepositsCount,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Workplace" Binding="{Binding Organization}"/>
+                        <DataGridTextColumn Header="Key" Binding="{Binding Id}" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Header="Vips">
+                <DataGrid x:Name="VipsDG" ItemsSource="{Binding Path=VipsToShow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" SelectedItem="{Binding Selected}" CanUserAddRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Key" Binding="{Binding Id}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="LastName" Binding="{Binding LastName}"/>
+                        <DataGridTextColumn Header="WorkPlace" Binding="{Binding Organization}"/>
+                    </DataGrid.Columns>
+                    <DataGrid.InputBindings>
+                        <KeyBinding Key="Delete" Command="{Binding DeleteItem}" />
+                    </DataGrid.InputBindings>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+        <DataGrid  Margin="10,502,10,114" x:Name="BillDG" ItemsSource="{Binding Path=BillsToShow, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Selected}"  AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Owner's Key" Binding="{Binding Owner}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Money" Binding="{Binding Money}"/>
+                <DataGridCheckBoxColumn Header="Is Locked?" Binding="{Binding IsLocked}"/>
+                <DataGridTextColumn Header="StartDate" Binding="{Binding StartTime}"/>
+                <DataGridTextColumn Header="EndDate" Binding="{Binding EndTime}"/>
+            </DataGrid.Columns>
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DeleteItem}"/>
+            </DataGrid.InputBindings>
+        </DataGrid>
+        <StackPanel Margin="10,811,10,19" Orientation="Horizontal">
+            <Label Content="Date:" ></Label>
+            <Label  Content="{Binding NowDate}" Margin="0,0,0,0"></Label>
+            <Button Margin="50,0,10,0" Width="130" Command="{Binding DateChanging}" Content="Add Month"></Button>
+            <Button Margin="120,0,10,0" Width="130" Command="{Binding ToAddClientWindow}" Content="Add new client"></Button>
+            <Button Margin="50,0,10,0" Width="130" Command="{Binding ToAddBillWindow}"  Content="Add new bill"></Button>
+            <Button Margin="50,0,10,0" Width="130" Command="{Binding ToTransferCommand}" Content="Transfer"></Button>
+        </StackPanel>
+    </Grid>
+</Window>
